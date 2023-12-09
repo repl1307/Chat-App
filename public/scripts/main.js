@@ -9,9 +9,14 @@ socket.on('connect', () => {
   }
 });
 socket.on('chat message', (message) => {
-  displayMessage(message);
-  lastId = message.id;
-  lastMessageTime = Date.now();
+  if(message.isAnnouncement){
+    displayAnnouncement(message);
+  }
+  else{
+    displayMessage(message);
+    lastId = message.id;
+    lastMessageTime = Date.now();
+  }
 });
 
 //event listeners
@@ -91,6 +96,22 @@ async function encodeImageFileAsURL(element) {
   return promise;
 }
 
+//display announcement 
+function displayAnnouncement(message){
+  const messageContainer = document.querySelector('.message-container');
+  const messageElement = document.createElement('div');
+  messageElement.classList.add('announcement');
+
+  const p = document.createElement('p');
+  p.textContent = message.content;
+
+  messageElement.appendChild(p);
+  messageContainer.appendChild(messageElement);
+
+  setTimeout(() => {
+    messageElement.remove();
+  }, 5000);
+}
 //display message
 function displayMessage(message){
   const {name, content, time, id, images} = message;
