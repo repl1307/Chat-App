@@ -20,13 +20,18 @@ io.on('connection', socket => {
   for(const m of messages){
     socket.emit('chat message', m);
   }
-  console.log('User connected');
+  const m = new Message('Guest-'+socket.id+' has connected', 'ChatBot3000', [], socket.id);
+  m.isAnnouncement = true;
+  io.emit('chat message', m);
+
   socket.on('chat message', (message, images, user) => {
     messages.push(new Message(message, user, images, socket.id));
       io.emit('chat message', messages.at(-1));
   });
   socket.on('disconnect', () => {
-    io.emit('chat message', new Message('Guest-'+socket.id+' has disconnected', 'Guest-'+socket.id, [], socket.id));
+    const m = new Message('Guest-'+socket.id+' has disconnected', 'ChatBot3000', [], socket.id);
+    m.isAnnouncement = true;
+    io.emit('chat message', m);
   });
 });
 
