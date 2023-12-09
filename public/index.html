@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat App</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <dialog id="detailed-image-view">
+    <div class="image-div" onclick="this.children[0].classList.toggle('zoom')">
+      <img src="" />
+    </div>
+    <button onclick="this.parentNode.close()" id="image-view-close">X</button>
+    <div id="image-view-zoom">
+      <button>+</button>
+      <button>-</button>
+    <div>
+  </dialog>
+  <div class="chat-container">
+    <div class="message-container"></div>
+    <div class="input-container">
+      <div class="image-preview"></div>
+      <input type="file" accept="image/png, image/jpeg" id="image-upload" name="image-upload" style="display:none;"/>
+      <label for="image-upload" id="send-image"><img src="mountain.png"/></label>
+      <textarea rows=1></textarea>
+      <button id="send-message">Send</button>
+    </div>
+  </div>
+  <!-- socket.io setup -->
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+  <script src="scripts/utils.js"></script>
+  <script src="scripts/main.js"></script>
+</body>
+</html>
